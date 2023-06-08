@@ -1,19 +1,41 @@
 1. Create a promise. Have it resolve with a value of `Promise Resolved!` in resolve after a delay of 1000ms, using `setTimeout`. Print the contents of the promise after it has been resolved by passing `console.log` to `.then`
 
 ```js
-// Your code
+ let  promise = new Promise((res , rej )=>{
+    setTimeout(res(()=> console.log("Promise Resolved!")), 1000)
+ }).then(()=> {
+    console.log(promise)
+ })
 ```
 
 2. Create another promise. Now have it reject with a value of `Rejected Promise!` without using `setTimeout`. Print the contents of the promise after it has been rejected by passing console.log to `.catch`
 
 ```js
-// Your code
+let rejPromise = new Promise((res, rej) => {
+  rej(() => console.log("Promise Rejected!!"));
+})
+  .then(() => {
+    console.log("Promise Rejected");
+  })
+  .catch(() => {
+    console.log(rejPromise);
+  });
 ```
 
 3. Create another promise. Now have it reject with a value of `Rejected Promise!` without using `setTimeout`. Print the contents of the promise after it has been rejected by passing console.log to `.catch` and also use `.finally` to log message `Promise Settled!`.
 
-```js
-// Your code
+```js 
+let rejPromise2 = new Promise((res, rej) => {
+  rej(() => console.log("Promise Rejected!!"));
+})
+  .then(() => {
+    console.log("Promise Rejected");
+  })
+  .catch(() => {
+    console.log(rejPromise2);
+  }).finnaly(()=>{
+    console.log("Promise Settled!")
+  });
 ```
 
 4. What will be the output of the code below.
@@ -22,18 +44,24 @@
 console.log('A');
 
 // Asynchronous code finises in 0 seconds (Callback Queue)
-setTimeout(() => console.log('B'), 0); // callback queue
+setTimeout(() => console.log('B'), 0); // a b
 
 // A promise that resolves right away (Microtask Queue)
 Promise.resolve().then(() => console.log('C'));
 
-console.log('D');
+console.log('D'); // D C
 ```
 
 5. Write a function named `wait` that accepts `time` in ms returns a promise. The promise gets resolved after given time.
 
 ```js
-// Your code
+function wait(time){
+    let waitPr = new Promise((res ,rej)=>{
+        setTimeout(res(() =>{
+            console.log("Promise Resolved!!")
+        }))
+    })
+} wait(1000)
 ```
 
 6. Do the following:
@@ -46,7 +74,24 @@ console.log('D');
 - Catch the error using `.catch`
 
 ```js
-// Your code
+let newPromise = new Promise((res , rej)=>{
+    res(()=>{
+      console.log(21)
+    }).then((num)=>{
+       return num = num +10
+    }).then(()=>{
+        return num +100
+    }).then(()=>{
+        if(num>100){
+            console.log("Something Went wrong")
+        }
+    }).catch(()=>1{
+        rej(()=>{
+            console.log("Promise rejected!!")
+        })
+    })
+
+})
 ```
 
 7. Do the following:
